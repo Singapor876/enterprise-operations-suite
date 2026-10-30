@@ -37,6 +37,8 @@ builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 // Add controllers service
 builder.Services.AddControllers();
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<VesselManagementDbContext>("sql-server");
 
 
 // Add Swagger/OpenAPI generation services
@@ -103,6 +105,7 @@ app.UseAuthorization();
 
 // Map controller routes
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 app.Run();
 
